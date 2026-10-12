@@ -9,13 +9,15 @@ DEST=vendor/agent-skills
 REPO=https://github.com/addyosmani/agent-skills.git
 
 if [ "${1:-}" = "--update" ]; then rm -rf "$DEST"; fi
-if [ -d "$DEST/.git" ]; then
-  echo "已存在：$DEST（$(cat "$DEST/SOURCE" 2>/dev/null || echo '无 SOURCE')）；要更新用 --update"
+if [ -f "$DEST/SOURCE" ]; then
+  echo "已存在：$DEST（$(cat "$DEST/SOURCE" | tr '\n' ' ')）；要更新用 --update"
   exit 0
 fi
 mkdir -p vendor
 git clone --depth 1 --quiet "$REPO" "$DEST"
 SHA=$(git -C "$DEST" rev-parse HEAD)
+# 外层仓库要把它当普通内容提交，别留嵌套 .git（否则外层只记一个 gitlink、克隆出来是空目录）
+rm -rf "$DEST/.git"
 printf 'repo: %s\nsha: %s\ndate: %s\n' "$REPO" "$SHA" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > "$DEST/SOURCE"
 echo "已克隆 → $DEST"
 echo "SHA $SHA"
