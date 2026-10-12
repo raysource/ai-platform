@@ -1,0 +1,6 @@
+{
+  "name": "agent-skills-vendor",
+  "private": true,
+  "type": "commonjs",
+  "description": "vendor 的上游仓库（addyosmani/agent-skills，MIT）本身没有 package.json；本平台是 type:module，会让它 scripts/ 下的 CJS 文件被当成 ESM 解析（require 拿到空对象）。这里显式声明 CJS，好让上游的参考校验器 skill-lint 能被直接 require 使用。"
+}
