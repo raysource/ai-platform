@@ -1,0 +1,14 @@
+{
+  "name": "ai-platform",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "软件开发可视化平台 · 阶段门禁 + WBS 分解 + 逐模块单元测试与人工批准（零依赖）",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "AI_PLATFORM_SPEED=0 node --test test/",
+    "e2e": "node tools/e2e.mjs",
+    "verify": "bash tools/run_all.sh"
+  },
+  "engines": { "node": ">=20" }
+}
